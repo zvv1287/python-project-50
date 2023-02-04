@@ -1,3 +1,6 @@
+run:
+	poetry run python3 -m gendiff.scripts.gendiff.py -h
+
 
 build:
 	poetry build
