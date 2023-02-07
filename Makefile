@@ -1,6 +1,8 @@
-run:
-	poetry run python3 -m gendiff.scripts.gendiff.py -h
+run-h:
+	poetry run python3 -m gendiff.scripts.gendiff -h
 
+run-with-files:
+	poetry run python3 -m gendiff.scripts.gendiff file1.json file2.json
 
 build:
 	poetry build
