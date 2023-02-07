@@ -14,4 +14,5 @@ package-install:
 lint:
 	poetry run flake8 gendiff/
 
-
+my-run:
+	@echo 'run'
