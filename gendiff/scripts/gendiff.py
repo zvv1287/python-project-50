@@ -23,17 +23,18 @@ def generate_diff(file_path_1, file_path_2):
     dict_2 = json.load(open(file_path_2))
 
     all_keys = dict_1.keys() | dict_2.keys()
-    res_string = ''
-    for key in all_keys:
+    res = []
+    for key in sorted(all_keys):
         if key not in dict_1.keys():
-            res_string += f'+ {key}: {dict_2[key]}\n'
+            res.append(f'+ {key}: {dict_2[key]}')
         elif key not in dict_2.keys():
-            res_string += f'- {key}: {dict_1[key]}\n'
+            res.append(f'- {key}: {dict_1[key]}')
         elif dict_1[key] == dict_2[key]:
-            res_string += f'  {key}: {dict_1[key]}\n'
+            res.append(f'  {key}: {dict_1[key]}')
         else:
-            res_string += f'- {key}: {dict_1[key]}\n'
-            res_string += f'+ {key}: {dict_2[key]}\n'
+            res.append(f'- {key}: {dict_1[key]}')
+            res.append(f'+ {key}: {dict_2[key]}')
+    res_string = '\n'.join(res)
     return res_string
 
 
