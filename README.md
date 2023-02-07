@@ -2,9 +2,7 @@
 [![Actions Status](https://github.com/zvv1287/python-project-50/workflows/hexlet-check/badge.svg)](https://github.com/zvv1287/python-project-50/actions)
 [![difference_calc](https://github.com/zvv1287/python-project-50/actions/workflows/difference_calc.yml/badge.svg)](https://github.com/zvv1287/python-project-50/actions/workflows/difference_calc.yml)
 
-
-[![Maintainability](https://codeclimate.com/github/zvv1287/python-project-50/maintainability)](https://codeclimate.com/github/zvv1287/python-project-50/maintainability)
-
+[![Maintainability](https://api.codeclimate.com/v1/badges/04906d348e898a76dff8/maintainability)](https://codeclimate.com/github/zvv1287/python-project-50/maintainability)
 
 Проект курса Хекслет:
 Сравнение файлов
