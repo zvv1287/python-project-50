@@ -19,4 +19,5 @@ lint:
 test-coverage:
 	poetry run pytest --cov=gendiff --cov-report xml
 		
-
+install:
+	poetry install
