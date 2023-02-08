@@ -1,20 +1,30 @@
-run-h:
-	poetry run python3 -m gendiff.scripts.gendiff -h
+install:
+		poetry install
 
-run-with-files:
-	poetry run python3 -m gendiff.scripts.gendiff file1.json file2.json
+gendiff:
+		poetry run gendiff
 
-build:
-	poetry build
-
-publish:
-	poetry publish --dry-run
-
-package-install:
-	python3 -m pip install --user --force-reinstall dist/*.whl
-
-lint:
-	poetry run flake8 gendiff/
+test:
+		poetry run pytest
 
 test-coverage:
 		poetry run pytest --cov=gendiff --cov-report xml
+
+publish:
+		poetry publish --dry-run
+
+package-install:
+		python3 -m pip install --force-reinstall --user dist/*.whl
+
+lint:
+		poetry run flake8 gendiff
+
+selfcheck:
+		poetry check
+
+check: selfcheck test lint
+
+build: check
+		poetry build
+
+.PHONY: install test lint selfcheck check build
