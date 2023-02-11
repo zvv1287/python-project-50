@@ -1,23 +1,20 @@
 [tool.poetry]
-name = "hexlet-code"
-version = "0.1.0"
+name = "hexlet-python-package"
+version = "0.3.0"
 description = ""
-authors = ["v"]
-readme = "README.md"
-packages = [{include = "gendiff"}]
+authors = ["skip"]
 
 [tool.poetry.dependencies]
-python = "^3.10"
-
-
-[tool.poetry.scripts]
-gendiff = "gendiff.scripts.gendiff:main"
-
+python = "^3.8"
 
 [tool.poetry.group.dev.dependencies]
-flake8 = "^6.0.0"
-pytest = "^7.2.1"
+pytest = "^7.1.3"
+wemake-python-styleguide = "^0.17.0"
+pytest-cov = "^4.0.0"
+
+[tool.poetry.scripts]
+hexlet-python-package = "hexlet_python_package.scripts.hexlet_python_package:main"
 
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
