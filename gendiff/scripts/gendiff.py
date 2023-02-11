@@ -44,8 +44,10 @@ if __name__ == '__main__':
     file_path1 = f'gendiff/files/{args.first_file}'
     file_path2 = f'gendiff/files/{args.second_file}'
 
-    print("Исходный файл: ", json.load(open(file_path1)))
-    print("Файл после изменения: ", json.load(open(file_path2)))
+    with open(file_path1, 'r') as f:
+        print("Исходный файл: ", f.read())
+    with open(file_path2, 'r') as f:
+        print("Файл после изменения: ", f.read())
     diff = generate_diff(file_path1, file_path2)
     print("Сравнение:")
     print(diff)
