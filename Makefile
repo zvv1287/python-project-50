@@ -13,4 +13,4 @@ git-add-commit:
 	git status
 
 run_gendiff:
-	uv run gendiff file1.json file2.json
+	uv run gendiff gendiff/files/file1.json gendiff/files/file2.json
