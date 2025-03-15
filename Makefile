@@ -7,6 +7,9 @@ run-gendiff:
 test:
 	uv run pytest
 
+s-test:
+	uv run pytest -s
+
 lint:
 	uv run ruff check
 
