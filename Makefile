@@ -30,5 +30,5 @@ git-add-commit:
 	git status
 
 test-coverage:
-	uv run pytest --cov=gendiff --cov-report xml
+	uv run pytest --cov=gendiff
 
