@@ -32,6 +32,9 @@ git-add-commit:
 	git commit -m "$m"
 	git status
 
-test-coverage:
+my-test-coverage:
 	uv run pytest --cov=gendiff
+
+test-coverage:
+	uv run pytest --cov=gendiff --cov-report xml
 
