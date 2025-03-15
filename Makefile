@@ -1,3 +1,18 @@
+install:
+	uv sync
+
+run-gendiff:
+	uv run gendiff gendiff/files/file1.json gendiff/files/file2.json
+
+test:
+	uv run pytest
+
+lint:
+	uv run ruff check
+
+lint-fix:
+	uv run ruff check --fix
+
 build:
 	uv build
 
@@ -12,5 +27,5 @@ git-add-commit:
 	git commit -m "$m"
 	git status
 
-run_gendiff:
-	uv run gendiff gendiff/files/file1.json gendiff/files/file2.json
+
+

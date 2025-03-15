@@ -1,5 +1,6 @@
 import json
 
+
 def generate_diff(file_path1, file_path2):
     first_file = get_date_from_file(file_path1)
     second_file = get_date_from_file(file_path2)
