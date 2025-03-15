@@ -33,3 +33,7 @@ def get_diff_result_str(first_file, second_file):
             result.append(get_str('+', key, value_2))
 
     return '{\n' + "".join(result) + '}'
+
+
+def my_func():
+    return 5
