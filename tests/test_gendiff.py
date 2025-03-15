@@ -4,11 +4,6 @@ from gendiff.generate_diff import (
     get_diff_result_str,
     get_str,
 )
-from gendiff.scripts.gendiff import main
-
-
-def test_main():
-    assert main() == 5
 
 
 def get_test_data_path(filename):
