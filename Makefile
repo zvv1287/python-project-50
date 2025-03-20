@@ -5,7 +5,7 @@ build:
 	uv build
 
 run-gendiff:
-	uv run python -m gendiff.scripts.gendiff -h
+	uv run gendiff gendiff/files/file1.json gendiff/files/file2.json
 
 
 
