@@ -15,6 +15,12 @@ def test_get_date_from_file():
     assert (get_date_from_file(get_test_data_path('file1.json'))
             == {'host': 'hexlet.io', 'timeout': 50,
                 'proxy': '123.234.53.22', 'follow': False})
+    assert (get_date_from_file(get_test_data_path('file1.yml'))
+            == {'host': 'hexlet.io', 'timeout': 50,
+                'proxy': '123.234.53.22', 'follow': False})
+    assert (get_date_from_file(get_test_data_path('file2.yaml'))
+            == {'host': 'hexlet.io', 'timeout': 20,
+                'verbose': True})
 
 
 def test_get_diff_result_str():
