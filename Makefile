@@ -4,8 +4,11 @@ install:
 build:
 	uv build
 
-run-gendiff:
+run-json:
 	uv run gendiff gendiff/files/file1.json gendiff/files/file2.json
+
+run-yml:
+	uv run gendiff gendiff/files/file1.yml gendiff/files/file2.yml
 
 lint:
 	uv run ruff check

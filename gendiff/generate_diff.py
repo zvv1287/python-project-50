@@ -1,4 +1,4 @@
-import json
+from gendiff.parser import get_date_from_file
 
 
 def generate_diff(file_path1, file_path2):
@@ -7,21 +7,6 @@ def generate_diff(file_path1, file_path2):
 
     result = get_diff_result_str(first_file, second_file)
     return result
-
-
-def get_date_from_file(file_path):
-    from pathlib import Path
-
-    import yaml
-    suffix = Path(file_path).suffix
-
-    if suffix == '.json':
-        data = json.load(open(file_path))
-    elif suffix == '.yml' or suffix == '.yaml':
-        with open(file_path, 'r') as file:
-            data = yaml.safe_load(file)
-
-    return data
 
 
 def get_str(sign, key, value):
