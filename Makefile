@@ -4,7 +4,7 @@ install:
 build:
 	uv build
 
-run-json:
+run:
 	uv run gendiff gendiff/files/file1.json gendiff/files/file2.json
 
 run-yml:
@@ -27,3 +27,5 @@ check: test lint
 test-coverage:
 	uv run pytest --cov=gendiff --cov-report xml
 
+coverage:
+	uv run pytest --cov
