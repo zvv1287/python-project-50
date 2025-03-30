@@ -1,62 +1,44 @@
-from gendiff.generate_diff import generate_diff, get_diff_data, get_res_dict
+import pytest
+import os
+from gendiff.generate_diff import generate_diff
+from test_utils import get_expected_result
 
 
-def get_data_path(filename):
-    from pathlib import Path
-    return Path(__file__).parent / 'test_data' / filename
+FIXTURES_DIR = os.path.join('tests', 'fixtures')
 
 
-def test_generate_diff():
-    resdiff = get_data_path('resdiff').read_text()
-    file_path_1 = get_data_path('file1.json')
-    file_path_2 = get_data_path('file2.json')
-    assert generate_diff(file_path_1, file_path_2) == resdiff
-
-    resdiff = get_data_path('resdiffnew').read_text()
-    file_path_1 = get_data_path('file1new.json')
-    file_path_2 = get_data_path('file2new.json')
-    assert generate_diff(file_path_1, file_path_2) == resdiff
-
-    resdiff = get_data_path('resdiffnew_plain').read_text()
-    file_path_1 = get_data_path('file1new.json')
-    file_path_2 = get_data_path('file2new.json')
-    assert generate_diff(file_path_1, file_path_2, 'plain') == resdiff
+def get_file_path(filename):
+    return os.path.join(FIXTURES_DIR, filename)
 
 
-def test_get_res_dict():
-    data = {'deep': {'id': {'number': 45}}, 'fee': 100500}
-    true_res = {'deep':
-                    {'action': 'no_modife',
-                     'value':
-                        {'id': {
-                            'action': 'no_modife',
-                            'value': {
-                                'number': {
-                                    'action': 'no_modife',
-                                    'value': 45}
-                            }
-                        }
-                        }
-                     },
-                'fee': {
-                    'action': 'no_modife', 'value': 100500}
-                }
-    assert get_res_dict(data) == true_res
+@pytest.mark.parametrize('file1_name, file2_name, formatter', [
+    ('file1.json', 'file2.json', 'stylish'),
+    ('file1.yml', 'file2.yml', 'stylish'),
+    ('file1.json', 'file2.json', 'plain'),
+    ('file1.yml', 'file2.yml', 'plain'),
+    ('file1.json', 'file2.json', 'json'),
+    ('file1.yml', 'file2.yml', 'json')
+])
+def test_generate_diff(file1_name, file2_name, formatter):
+    file1_path = get_file_path(file1_name)
+    file2_path = get_file_path(file2_name)
+    expected_result = get_expected_result(f'exp_{formatter}.txt')
+
+    actual_result = generate_diff(file1_path, file2_path, formatter)
+
+    assert actual_result == expected_result
 
 
-def test_get_diff_data():
-    first_file_data = {'key_del': 'hexlet.io', 'key_mod': 50,
-                       'key_nothing': 'noth', 'key_dict': {'key': 'value'}}
-    second_file_data = {'key_add': 'hexlet', 'key_mod': 20,
-                        'key_nothing': 'noth', 'key_dict': {'key2': 'value2'}}
-
-    true_res = \
-        {'key_del': {'action': 'del', 'value': 'hexlet.io'},
-         'key_dict': {'action': 'value_dict', 'value': {
-             'key': {'action': 'del', 'value': 'value'},
-             'key2': {'action': 'add', 'value': 'value2'}}},
-         'key_add': {'action': 'add', 'value': 'hexlet'},
-         'key_mod': {'action': 'modife', 'old_value': 50, 'new_value': 20},
-         'key_nothing': {'action': 'no_modife', 'value': 'noth'}}
-
-    assert get_diff_data(first_file_data, second_file_data) == true_res
+@pytest.mark.parametrize('file1_name, file2_name, formatter', [
+    ('file1.json', 'file3.txt', 'stylish'),
+    ('file2.yml', 'file3.txt', 'stylish'),
+    ('file1.json', 'file3.txt', 'plain'),
+    ('file2.yml', 'file3.txt', 'plain'),
+    ('file1.json', 'file3.txt', 'json'),
+    ('file2.yml', 'file3.txt', 'json')
+])
+def test_unsupported_formatter(file1_name, file2_name, formatter):
+    file1_path = get_file_path(file1_name)
+    file2_path = get_file_path(file2_name)
+    with pytest.raises(ValueError):
+        generate_diff(file1_path, file2_path, formatter)

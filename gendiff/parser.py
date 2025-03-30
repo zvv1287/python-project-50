@@ -1,22 +1,27 @@
+import os
+import yaml
 import json
 
 
-def get_file_date(file_path):
+def get_file_format(file_path):
+    _, ext = os.path.splitext(file_path)
+    return ext[1:]
+
+
+def get_file_content(file_path):
     with open(file_path) as file:
         return file.read()
 
 
-def get_date_from_file(file_path):
-    from pathlib import Path
+def parse_data(content, format):
+    if format == 'json':
+        return json.loads(content)
+    if format in ['yml', 'yaml']:
+        return yaml.safe_load(content)
+    raise ValueError(f"Unsupported file format: {format}")
 
-    import yaml
 
-    suffix = Path(file_path).suffix
-    file_date = get_file_date(file_path)
-    if suffix == '.json':
-        data = json.loads(file_date)
-    elif suffix == '.yml' or suffix == '.yaml':
-        data = yaml.safe_load(file_date)
-    else:
-        return
-    return data
+def parse_data_from_file(file_path):
+    format = get_file_format(file_path)
+    content = get_file_content(file_path)
+    return parse_data(content, format)

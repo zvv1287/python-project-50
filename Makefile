@@ -1,40 +1,38 @@
 install:
-	uv sync
+	poetry install
 
 build:
-	uv build
+	poetry build
 
-run:
-	gendiff gendiff/files/file1.json gendiff/files/file2.json
+publish:
+	poetry publish --dry-run
 
-run-yml:
-	gendiff gendiff/files/file1.yml gendiff/files/file2.yml
-
-stylish-run:
-	gendiff gendiff/files/file1new.json gendiff/files/file2new.json
-
-plain-run:
-	gendiff --format plain gendiff/files/file1new.json gendiff/files/file2new.json
-
-json-run:
-	gendiff --format json gendiff/files/file1new.json gendiff/files/file2new.json
+package-install:
+	python3 -m pip install --force-reinstall dist/*.whl
 
 lint:
-	uv run ruff check
+	poetry run flake8 gendiff
+	poetry run flake8 tests
 
-lint-fix:
-	uv run ruff check --fix
+diff:
+	poetry run gendiff tests/fixtures/file1.json tests/fixtures/file2.json
+
+diff_plain:
+	poetry run gendiff tests/fixtures/file1.yml tests/fixtures/file2.yml -f plain
+
+diff_json:
+	poetry run gendiff tests/fixtures/file1.yml tests/fixtures/file2.yml -f json
 
 test:
-	uv run pytest
+	poetry run pytest
 
-s-test:
-	uv run pytest -s
+check:
+	poetry run flake8 gendiff
+	poetry run flake8 tests
+	poetry run pytest
 
-check: test lint
+test-cov:
+	poetry run coverage run -m pytest
+	poetry run coverage report
 
-test-coverage:
-	uv run pytest --cov=gendiff --cov-report xml
-
-coverage:
-	uv run pytest --cov
+.PHONY: install build publish package-install lint diff diff-json diff-plain test test-coverage check

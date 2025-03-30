@@ -1,29 +1,30 @@
-from gendiff.parser import get_date_from_file, get_file_date
+import json
+import pytest
+from gendiff.parser import parse_data_from_file
+from test_utils import get_expected_result
 
 
-def get_data_path(filename):
-    from pathlib import Path
-    return Path(__file__).parent / 'test_data' / filename
+@pytest.fixture
+def input_file_path(request):
+    return request.param
 
 
-def test_get_file_date():
-    path = get_data_path('file1.json')
-
-    assert get_file_date(path) == '''{
-  "host": "hexlet.io",
-  "timeout": 50,
-  "proxy": "123.234.53.22",
-  "follow": false
-}'''
+@pytest.fixture
+def expected_result(request):
+    return get_expected_result(request.param)
 
 
-def test_get_date_from_file():
-    assert (get_date_from_file(get_data_path('file1.json'))
-            == {'host': 'hexlet.io', 'timeout': 50,
-                'proxy': '123.234.53.22', 'follow': False})
-    assert (get_date_from_file(get_data_path('file1.yml'))
-            == {'host': 'hexlet.io', 'timeout': 50,
-                'proxy': '123.234.53.22', 'follow': False})
-    assert (get_date_from_file(get_data_path('file2.yaml'))
-            == {'host': 'hexlet.io', 'timeout': 20,
-                'verbose': True})
+@pytest.mark.parametrize('input_file_path, expected_result', [
+    ('tests/fixtures/file1.json', 'expected_result_for_parse_file1.json'),
+    ('tests/fixtures/file1.yml', 'expected_result_for_parse_file1.json'),
+    ('tests/fixtures/file2.json', 'expected_result_for_parse_file2.json'),
+    ('tests/fixtures/file2.yml', 'expected_result_for_parse_file2.json')
+], indirect=['input_file_path', 'expected_result'])
+def test_parse(input_file_path, expected_result):
+    actual_data = parse_data_from_file(input_file_path)
+    assert actual_data == json.loads(expected_result)
+
+
+def test_unsupported_format():
+    with pytest.raises(ValueError):
+        parse_data_from_file("tests/fixtures/file3.txt")
