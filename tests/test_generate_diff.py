@@ -17,6 +17,11 @@ def test_generate_diff():
     file_path_2 = get_data_path('file2new.json')
     assert generate_diff(file_path_1, file_path_2) == resdiff
 
+    resdiff = get_data_path('resdiffnew_plain').read_text()
+    file_path_1 = get_data_path('file1new.json')
+    file_path_2 = get_data_path('file2new.json')
+    assert generate_diff(file_path_1, file_path_2, 'plain') == resdiff
+
 
 def test_get_res_dict():
     data = {'deep': {'id': {'number': 45}}, 'fee': 100500}

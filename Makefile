@@ -5,13 +5,17 @@ build:
 	uv build
 
 run:
-	uv run gendiff gendiff/files/file1.json gendiff/files/file2.json
+	gendiff gendiff/files/file1.json gendiff/files/file2.json
 
 run-yml:
-	uv run gendiff gendiff/files/file1.yml gendiff/files/file2.yml
+	gendiff gendiff/files/file1.yml gendiff/files/file2.yml
 
-new-run:
-	uv run gendiff gendiff/files/file1new.json gendiff/files/file2new.json
+stylish-run:
+	gendiff gendiff/files/file1new.json gendiff/files/file2new.json
+
+plain-run:
+	gendiff --format plain gendiff/files/file1new.json gendiff/files/file2new.json
+
 
 lint:
 	uv run ruff check

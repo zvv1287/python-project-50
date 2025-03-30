@@ -1,13 +1,20 @@
+from gendiff.formatter.plain import get_plain_result_str
 from gendiff.formatter.stylish import get_result_str
 from gendiff.parser import get_date_from_file
 
 
-def generate_diff(file_path1, file_path2):
+def generate_diff(file_path1, file_path2, format_name='stylish'):
     first_file_data = get_date_from_file(file_path1)
     second_file_data = get_date_from_file(file_path2)
-
     result_diff = get_diff_data(first_file_data, second_file_data)
-    result = get_result_str(result_diff)
+
+    if format_name == 'stylish':
+        result = get_result_str(result_diff)
+    elif format_name == 'plain':
+        result = get_plain_result_str(result_diff)
+    else:
+        result = 'None'
+
     return result
 
 
@@ -65,3 +72,6 @@ def get_diff_data(data1, data2):
                                       'new_value': value_2}
 
     return diff_dict
+
+
+
