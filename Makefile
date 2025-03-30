@@ -16,6 +16,8 @@ stylish-run:
 plain-run:
 	gendiff --format plain gendiff/files/file1new.json gendiff/files/file2new.json
 
+json-run:
+	gendiff --format json gendiff/files/file1new.json gendiff/files/file2new.json
 
 lint:
 	uv run ruff check

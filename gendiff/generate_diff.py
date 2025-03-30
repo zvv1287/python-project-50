@@ -1,3 +1,4 @@
+from gendiff.formatter.diff_json import get_json_result_str
 from gendiff.formatter.plain import get_plain_result_str
 from gendiff.formatter.stylish import get_result_str
 from gendiff.parser import get_date_from_file
@@ -12,6 +13,8 @@ def generate_diff(file_path1, file_path2, format_name='stylish'):
         result = get_result_str(result_diff)
     elif format_name == 'plain':
         result = get_plain_result_str(result_diff)
+    elif format_name == 'json':
+        result = get_json_result_str(result_diff)
     else:
         result = 'None'
 
