@@ -13,7 +13,6 @@ def get_date_from_file(file_path):
 
     suffix = Path(file_path).suffix
     file_date = get_file_date(file_path)
-
     if suffix == '.json':
         data = json.loads(file_date)
     elif suffix == '.yml' or suffix == '.yaml':

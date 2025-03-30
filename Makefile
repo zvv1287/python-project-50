@@ -10,6 +10,9 @@ run:
 run-yml:
 	uv run gendiff gendiff/files/file1.yml gendiff/files/file2.yml
 
+new-run:
+	uv run gendiff gendiff/files/file1new.json gendiff/files/file2new.json
+
 lint:
 	uv run ruff check
 
